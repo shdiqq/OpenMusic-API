@@ -7,7 +7,7 @@ const putAlbumById = async (_this, request) => {
 
   return {
     status: 'success',
-    message: 'Catatan berhasil diperbarui',
+    message: 'Album berhasil diperbarui',
   };
 };
 

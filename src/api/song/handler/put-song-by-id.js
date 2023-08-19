@@ -14,7 +14,7 @@ const putSongById = async (_this, request) => {
 
   return {
     status: 'success',
-    message: 'Catatan berhasil diperbarui',
+    message: 'Song berhasil diperbarui',
   };
 };
 

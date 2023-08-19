@@ -20,7 +20,7 @@ const postSong = async (_this, request, h) => {
 
   const response = h.response({
     status: 'success',
-    message: 'Catatan berhasil ditambahkan',
+    message: 'Song berhasil ditambahkan',
     data: {
       songId: SongId,
     },
