@@ -1,17 +1,51 @@
 require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
+const Jwt = require('@hapi/jwt');
+
+// album
 const album = require('./api/album');
+const AlbumService = require('./service/postgres/album');
+const AlbumValidator = require('./validator/album');
+
+// song
 const song = require('./api/song');
-const AlbumService = require('./service/postgre/album');
-const SongService = require('./service/postgre/song');
-const AlbumValidator = require('./validator/album/index');
-const SongValidator = require('./validator/song/index');
+const SongService = require('./service/postgres/song');
+const SongValidator = require('./validator/song');
+
+// playlist
+const playlist = require('./api/playlist');
+const PlaylistService = require('./service/postgres/playlist');
+const PlaylistValidator = require('./validator/playlist');
+
+// collaboration
+const collaboration = require('./api/collaboration');
+const CollaborationService = require('./service/postgres/collaboration');
+const CollaborationValidator = require('./validator/collaboration');
+
+// user
+const user = require('./api/user');
+const UserService = require('./service/postgres/user');
+const UserValidator = require('./validator/user');
+
+// authentication
+const authentication = require('./api/authentication');
+const AuthenticationService = require('./service/postgres/authentication');
+const AuthenticationValidator = require('./validator/authentication');
+
+// token
+const TokenManager = require('./tokenize/TokenManager');
+
 const ClientError = require('./exception/ClientError');
 
 const init = async () => {
   const albumService = new AlbumService();
   const songService = new SongService();
+  const playlistService = new PlaylistService();
+  const collaborationService = new CollaborationService();
+  const userService = new UserService();
+  const authenticationService = new AuthenticationService();
+
   const server = Hapi.server({
     port: process.env.PORT,
     host: process.env.HOST,
@@ -23,6 +57,30 @@ const init = async () => {
   });
 
   try {
+    // registrasi plugin eksternal
+    await server.register([
+      {
+        plugin: Jwt,
+      },
+    ]);
+
+    // mendefinisikan strategy autentikasi jwt
+    server.auth.strategy('openmusicapp_jwt', 'jwt', {
+      keys: process.env.ACCESS_TOKEN_KEY,
+      verify: {
+        aud: false,
+        iss: false,
+        sub: false,
+        maxAgeSec: process.env.ACCESS_TOKEN_AGE,
+      },
+      validate: (artifact) => ({
+        isValid: true,
+        credentials: {
+          id: artifact.decoded.payload.id,
+        },
+      }),
+    });
+
     await server.register([
       {
         plugin: album,
@@ -36,6 +94,36 @@ const init = async () => {
         options: {
           service: songService,
           validator: SongValidator,
+        },
+      },
+      {
+        plugin: playlist,
+        options: {
+          service: playlistService,
+          validator: PlaylistValidator
+        }
+      },
+      {
+        plugin: collaboration,
+        options: {
+          collaborationService,
+          validator: CollaborationValidator,
+        },
+      },
+      {
+        plugin: user,
+        options: {
+          service: userService,
+          validator: UserValidator,
+        },
+      },
+      {
+        plugin: authentication,
+        options: {
+          authenticationService,
+          userService,
+          tokenManager: TokenManager,
+          validator: AuthenticationValidator,
         },
       },
     ]);
@@ -70,9 +158,9 @@ const init = async () => {
     });
 
     await server.start();
-    console.log(`Server berjalan pada ${server.info.uri}`);
+    console.log(`[APP] Server berjalan pada ${server.info.uri}`);
   } catch (error) {
-    console.error('Terjadi kesalahan:', error);
+    console.error('[APP] Terjadi kesalahan:', error);
   }
 };
 
