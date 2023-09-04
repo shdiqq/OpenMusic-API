@@ -4,17 +4,15 @@ const routes = require('./routes');
 module.exports = {
   name: 'authentication',
   version: '1.0.0',
-  register: async (server, {
-    authenticationService,
-    userService,
-    tokenManager,
-    validator,
-  }) => {
+  register: async (
+    server,
+    { authenticationService, userService, tokenManager, validator }
+  ) => {
     const authenticationHandler = new AuthenticationHandler(
       authenticationService,
       userService,
       tokenManager,
-      validator,
+      validator
     );
     server.route(routes(authenticationHandler));
   },

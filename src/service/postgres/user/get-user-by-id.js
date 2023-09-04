@@ -1,4 +1,4 @@
-const NotFoundError = require("../../../exception/NotFoundError");
+const NotFoundError = require('../../../exception/NotFoundError');
 
 const getUserById = async (_this, userId) => {
   const query = {
@@ -13,6 +13,6 @@ const getUserById = async (_this, userId) => {
   }
 
   return result.rows[0];
-}
+};
 
 module.exports = getUserById;

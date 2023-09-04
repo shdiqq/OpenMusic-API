@@ -10,7 +10,7 @@ class UserService {
   }
 
   async postUserService({ username, password, fullname }) {
-    const result = await postUser(this, {username, password, fullname});
+    const result = await postUser(this, { username, password, fullname });
     return result;
   }
 
@@ -25,7 +25,7 @@ class UserService {
   }
 
   async getUserByUsernameAndPasswordService(username, password) {
-    const result = await getUserByUsernameAndPassword(this, username, password)
+    const result = await getUserByUsernameAndPassword(this, username, password);
     return result;
   }
 }

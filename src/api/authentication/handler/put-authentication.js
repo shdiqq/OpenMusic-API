@@ -15,6 +15,6 @@ const putAuthentication = async (_this, request) => {
       accessToken,
     },
   };
-}
+};
 
-module.exports = putAuthentication
+module.exports = putAuthentication;

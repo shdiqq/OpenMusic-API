@@ -1,10 +1,10 @@
-const deletePlaylistById = require("./delete-playlist-by-id");
-const getPlaylist = require("./get-playlist");
-const postPlaylist = require("./post-playlist");
-const postSongToPlaylistId = require("./post-song-to-playlist-id");
-const getSongInPlaylistId = require("./get-song-in-playlist-id");
-const deleteSongFromPlaylistId = require("./delete-song-from-playlist-id");
-const getPlaylistIdActivities = require("./get-playlist-id-activities");
+const deletePlaylistById = require('./delete-playlist-by-id');
+const getPlaylist = require('./get-playlist');
+const postPlaylist = require('./post-playlist');
+const postSongToPlaylistId = require('./post-song-to-playlist-id');
+const getSongInPlaylistId = require('./get-song-in-playlist-id');
+const deleteSongFromPlaylistId = require('./delete-song-from-playlist-id');
+const getPlaylistIdActivities = require('./get-playlist-id-activities');
 
 class PlaylistHandler {
   constructor(service, validator) {

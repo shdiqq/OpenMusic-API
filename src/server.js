@@ -100,8 +100,8 @@ const init = async () => {
         plugin: playlist,
         options: {
           service: playlistService,
-          validator: PlaylistValidator
-        }
+          validator: PlaylistValidator,
+        },
       },
       {
         plugin: collaboration,

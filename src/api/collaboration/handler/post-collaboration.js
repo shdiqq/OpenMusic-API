@@ -3,7 +3,12 @@ const postCollaboration = async (_this, request, h) => {
   const { id: owner } = request.auth.credentials;
   const { playlistId, userId } = request.payload;
 
-  const collaborationId = await _this._collaborationService.postCollaborationService(playlistId, userId, owner);
+  const collaborationId =
+    await _this._collaborationService.postCollaborationService(
+      playlistId,
+      userId,
+      owner
+    );
 
   const response = h.response({
     status: 'success',

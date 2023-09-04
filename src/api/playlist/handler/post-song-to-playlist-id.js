@@ -4,7 +4,11 @@ const postSongToPlaylistId = async (_this, request, h) => {
   const { songId } = request.payload;
   const { id: playlistId } = request.params;
 
-  const PlaylistId = await _this._service.postSongToPlaylistIdService({playlistId, songId, owner});
+  const PlaylistId = await _this._service.postSongToPlaylistIdService({
+    playlistId,
+    songId,
+    owner,
+  });
 
   const response = h.response({
     status: 'success',
@@ -15,7 +19,6 @@ const postSongToPlaylistId = async (_this, request, h) => {
   });
   response.code(201);
   return response;
-
 };
 
 module.exports = postSongToPlaylistId;

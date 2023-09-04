@@ -11,13 +11,15 @@ const SongValidator = {
     }
   },
   validatePostSongToPlaylistIdPayload: (payload) => {
-    const validationResult = PostSongToPlaylistIdPayloadSchema.validate(payload);
+    const validationResult =
+      PostSongToPlaylistIdPayloadSchema.validate(payload);
     if (validationResult.error) {
       throw new InvariantError(validationResult.error.message);
     }
   },
   validateDeleteSongFromPlaylistIdPayload: (payload) => {
-    const validationResult = DeleteSongFromPlaylistIdPayloadSchema.validate(payload);
+    const validationResult =
+      DeleteSongFromPlaylistIdPayloadSchema.validate(payload);
     if (validationResult.error) {
       throw new InvariantError(validationResult.error.message);
     }

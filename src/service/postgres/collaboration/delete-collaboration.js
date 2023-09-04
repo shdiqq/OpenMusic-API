@@ -1,15 +1,17 @@
-const InvariantError = require("../../../exception/InvariantError");
-const NotFoundError = require("../../../exception/NotFoundError");
-const AuthorizationError = require("../../../exception/AuthorizationError");
+const InvariantError = require('../../../exception/InvariantError');
+const NotFoundError = require('../../../exception/NotFoundError');
+const AuthorizationError = require('../../../exception/AuthorizationError');
 
-const deleteCollaboration = async(_this, playlistId, userId, owner) => {
+const deleteCollaboration = async (_this, playlistId, userId, owner) => {
   const queryCheckOwnerPlaylist = {
     text: 'SELECT * FROM playlist WHERE id = $1 AND owner = $2',
     values: [playlistId, owner],
   };
   const isPlaylistOwner = await _this._pool.query(queryCheckOwnerPlaylist);
   if (isPlaylistOwner.rows.length === 0) {
-    throw new AuthorizationError('User tidak dapat mengakses playlist tersebut');
+    throw new AuthorizationError(
+      'User tidak dapat mengakses playlist tersebut'
+    );
   }
 
   const queryCheckUser = {
@@ -31,6 +33,6 @@ const deleteCollaboration = async(_this, playlistId, userId, owner) => {
   if (!result.rows.length) {
     throw new InvariantError('Kolaborasi gagal dihapus');
   }
-}
+};
 
 module.exports = deleteCollaboration;

@@ -22,6 +22,6 @@ const getUserByUsernameAndPassword = async (_this, username, password) => {
   }
 
   return id;
-}
+};
 
 module.exports = getUserByUsernameAndPassword;

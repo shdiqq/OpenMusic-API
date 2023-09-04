@@ -1,4 +1,4 @@
-const deleteRefreshToken = async(_this, token) => {
+const deleteRefreshToken = async (_this, token) => {
   await _this.getRefreshTokenService(token);
 
   const query = {
@@ -7,6 +7,6 @@ const deleteRefreshToken = async(_this, token) => {
   };
 
   await _this._pool.query(query);
-}
+};
 
 module.exports = deleteRefreshToken;

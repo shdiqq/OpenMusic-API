@@ -3,7 +3,10 @@ const postAuthentication = async (_this, request, h) => {
 
   const { username, password } = request.payload;
 
-  const id = await _this._userService.getUserByUsernameAndPasswordService(username, password);
+  const id = await _this._userService.getUserByUsernameAndPasswordService(
+    username,
+    password
+  );
 
   const accessToken = _this._tokenManager.generateAccessToken({ id });
   const refreshToken = _this._tokenManager.generateRefreshToken({ id });
@@ -20,6 +23,6 @@ const postAuthentication = async (_this, request, h) => {
   });
   response.code(201);
   return response;
-}
+};
 
-module.exports = postAuthentication
+module.exports = postAuthentication;

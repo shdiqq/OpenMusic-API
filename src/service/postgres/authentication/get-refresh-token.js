@@ -1,4 +1,4 @@
-const InvariantError = require("../../../exception/InvariantError");
+const InvariantError = require('../../../exception/InvariantError');
 
 const getRefreshToken = async (_this, token) => {
   const query = {
@@ -11,6 +11,6 @@ const getRefreshToken = async (_this, token) => {
   if (!result.rows.length) {
     throw new InvariantError('Refresh token tidak valid');
   }
-}
+};
 
 module.exports = getRefreshToken;

@@ -1,6 +1,6 @@
-const { nanoid } = require("nanoid");
+const { nanoid } = require('nanoid');
 const bcrypt = require('bcrypt');
-const InvariantError = require("../../../exception/InvariantError");
+const InvariantError = require('../../../exception/InvariantError');
 
 const postUser = async (_this, { username, password, fullname }) => {
   await _this.getUserByUsernameService(username);
@@ -17,6 +17,6 @@ const postUser = async (_this, { username, password, fullname }) => {
     throw new InvariantError('User gagal ditambahkan');
   }
   return result.rows[0].id;
-}
+};
 
 module.exports = postUser;

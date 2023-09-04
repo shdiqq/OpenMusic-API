@@ -5,6 +5,6 @@ const postRefreshToken = async (_this, token) => {
   };
 
   await _this._pool.query(query);
-}
+};
 
 module.exports = postRefreshToken;

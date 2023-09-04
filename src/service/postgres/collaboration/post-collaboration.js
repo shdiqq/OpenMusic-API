@@ -1,9 +1,9 @@
-const { nanoid } = require("nanoid");
-const InvariantError = require("../../../exception/InvariantError");
-const AuthorizationError = require("../../../exception/AuthorizationError");
-const NotFoundError = require("../../../exception/NotFoundError");
+const { nanoid } = require('nanoid');
+const InvariantError = require('../../../exception/InvariantError');
+const AuthorizationError = require('../../../exception/AuthorizationError');
+const NotFoundError = require('../../../exception/NotFoundError');
 
-const postCollaboration = async(_this, playlistId, userId, owner) => {
+const postCollaboration = async (_this, playlistId, userId, owner) => {
   const queryCheckUser = {
     text: 'SELECT id FROM "user" WHERE id = $1',
     values: [userId],
@@ -28,7 +28,9 @@ const postCollaboration = async(_this, playlistId, userId, owner) => {
   };
   const isPlaylistOwner = await _this._pool.query(queryCheckOwnerPlaylist);
   if (isPlaylistOwner.rows.length === 0) {
-    throw new AuthorizationError('User tidak dapat mengakses playlist tersebut');
+    throw new AuthorizationError(
+      'User tidak dapat mengakses playlist tersebut'
+    );
   }
 
   const id = `collab-${nanoid(16)}`;
@@ -41,6 +43,6 @@ const postCollaboration = async(_this, playlistId, userId, owner) => {
     throw new InvariantError('Kolaborasi gagal ditambahkan');
   }
   return result.rows[0].id;
-}
+};
 
 module.exports = postCollaboration;

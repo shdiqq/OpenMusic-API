@@ -14,7 +14,7 @@ class AuthenticationService {
 
   async getRefreshTokenService(token) {
     const result = await getRefreshToken(this, token);
-    return (result);
+    return result;
   }
 
   async deleteRefreshTokenService(token) {

@@ -23,7 +23,11 @@ class PlaylistService {
   }
 
   async postSongToPlaylistIdService({ playlistId, songId, owner }) {
-    const result = await postSongToPlayListId(this, { playlistId, songId, owner });
+    const result = await postSongToPlayListId(this, {
+      playlistId,
+      songId,
+      owner,
+    });
     return result;
   }
 
@@ -33,7 +37,11 @@ class PlaylistService {
   }
 
   async deleteSongFromPlaylistIdService({ playlistId, songId, owner }) {
-    const result = await deleteSongFromPlaylistId(this, { playlistId, songId, owner });
+    const result = await deleteSongFromPlaylistId(this, {
+      playlistId,
+      songId,
+      owner,
+    });
     return result;
   }
 

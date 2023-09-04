@@ -1,4 +1,4 @@
-const getUserById = async (_this, request, ) => {
+const getUserById = async (_this, request) => {
   const { id } = request.params;
   const user = await this._service.getUserById(id);
   return {
@@ -7,6 +7,6 @@ const getUserById = async (_this, request, ) => {
       user,
     },
   };
-}
+};
 
-module.exports = getUserById
+module.exports = getUserById;

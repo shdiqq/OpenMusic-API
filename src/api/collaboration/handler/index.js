@@ -10,12 +10,12 @@ class CollaborationHandler {
   postCollaborationHandler = async (request, h) => {
     const result = await postCollaboration(this, request, h);
     return result;
-  }
+  };
 
   deleteCollaborationHandler = async (request, h) => {
     const result = await deleteCollaboration(this, request, h);
     return result;
-  }
+  };
 }
 
 module.exports = CollaborationHandler;

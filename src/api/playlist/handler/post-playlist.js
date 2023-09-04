@@ -3,7 +3,7 @@ const postPlaylist = async (_this, request, h) => {
   const { id: owner } = request.auth.credentials;
   const { name } = request.payload;
 
-  const PlaylistId = await _this._service.postPlaylistService({name, owner});
+  const PlaylistId = await _this._service.postPlaylistService({ name, owner });
 
   const response = h.response({
     status: 'success',

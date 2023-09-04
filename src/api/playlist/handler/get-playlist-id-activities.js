@@ -4,7 +4,7 @@ const getPlaylistIdActivities = async (_this, request) => {
   const data = await _this._service.getPlaylistIdActivitiesService(id, owner);
   return {
     status: 'success',
-    data
+    data,
   };
 };
 

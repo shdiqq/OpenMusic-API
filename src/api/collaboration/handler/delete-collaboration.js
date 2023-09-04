@@ -3,7 +3,11 @@ const deleteCollaboration = async (_this, request) => {
   const { id: owner } = request.auth.credentials;
   const { playlistId, userId } = request.payload;
 
-  await _this._collaborationService.deleteCollaborationService(playlistId, userId, owner);
+  await _this._collaborationService.deleteCollaborationService(
+    playlistId,
+    userId,
+    owner
+  );
 
   return {
     status: 'success',

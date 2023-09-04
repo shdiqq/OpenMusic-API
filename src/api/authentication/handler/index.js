@@ -13,17 +13,17 @@ class AuthenticationHandler {
   postAuthenticationHandler = async (request, h) => {
     const result = await postAuthentication(this, request, h);
     return result;
-  }
+  };
 
   putAuthenticationHandler = async (request) => {
     const result = await putAuthentication(this, request);
     return result;
-  }
+  };
 
   deleteAuthenticationHandler = async (request) => {
     const result = await deleteAuthentication(this, request);
     return result;
-  }
+  };
 }
 
 module.exports = AuthenticationHandler;

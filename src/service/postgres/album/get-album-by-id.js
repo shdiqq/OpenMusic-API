@@ -10,14 +10,14 @@ const getAlbumById = async (_this, id) => {
   const querySong = {
     text: 'SELECT id, title, performer FROM song WHERE album_id = $1',
     values: [id],
-  }
-  const resultSong = await _this._pool.query(querySong)
+  };
+  const resultSong = await _this._pool.query(querySong);
 
   if (!resultAlbum.rows.length) {
     throw new NotFoundError('Album tidak ditemukan');
   }
-  
-  resultAlbum.rows[0].songs = resultSong.rows
+
+  resultAlbum.rows[0].songs = resultSong.rows;
 
   return resultAlbum.rows[0];
 };

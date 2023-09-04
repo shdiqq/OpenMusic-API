@@ -4,7 +4,11 @@ const deleteSongFromPlaylistId = async (_this, request) => {
   const { songId } = request.payload;
   const { id: playlistId } = request.params;
 
-  await _this._service.deleteSongFromPlaylistIdService({playlistId, songId, owner});
+  await _this._service.deleteSongFromPlaylistIdService({
+    playlistId,
+    songId,
+    owner,
+  });
 
   return {
     status: 'success',

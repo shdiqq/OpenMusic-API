@@ -9,14 +9,16 @@ const deletePlaylistById = async (_this, id, owner) => {
 
   const isPlaylistOwner = await _this._pool.query(queryCheckOwnerPlaylist);
   if (isPlaylistOwner.rows.length === 0) {
-    throw new AuthorizationError('User tidak dapat mengakses playlist tersebut');
+    throw new AuthorizationError(
+      'User tidak dapat mengakses playlist tersebut'
+    );
   }
 
   const queryPlaylistSong = {
     text: 'DELETE FROM playlist_song WHERE playlist_id = $1',
     values: [id],
   };
-   await _this._pool.query(queryPlaylistSong);
+  await _this._pool.query(queryPlaylistSong);
 
   const queryPlaylist = {
     text: 'DELETE FROM playlist WHERE id = $1 RETURNING id',

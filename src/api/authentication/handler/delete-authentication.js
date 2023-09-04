@@ -11,6 +11,6 @@ const deleteAuthentication = async (_this, request) => {
     status: 'success',
     message: 'Refresh token berhasil dihapus',
   };
-}
+};
 
-module.exports = deleteAuthentication
+module.exports = deleteAuthentication;

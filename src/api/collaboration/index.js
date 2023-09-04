@@ -6,7 +6,8 @@ module.exports = {
   version: '1.0.0',
   register: async (server, { collaborationService, validator }) => {
     const collaborationHandler = new CollaborationHandler(
-      collaborationService, validator,
+      collaborationService,
+      validator
     );
     server.route(routes(collaborationHandler));
   },
