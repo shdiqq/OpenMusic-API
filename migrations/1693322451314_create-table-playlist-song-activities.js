@@ -22,11 +22,11 @@ exports.up = pgm => {
       notNull: true,
     },
     action: {
-      type: 'VARCHAR(22)',
+      type: 'VARCHAR(10)',
       notNull: true,
     },
     time: {
-      type: 'VARCHAR(22)',
+      type: 'timestamp',
       notNull: true,
     },
     created_at: {
@@ -43,5 +43,6 @@ exports.up = pgm => {
 
 
 exports.down = pgm => {
+  pgm.sql("UPDATE playlist_song_activities SET playlist_id = NULL");
   pgm.dropTable('playlist_song_activities');
 };

@@ -48,5 +48,6 @@ exports.up = pgm => {
 
 
 exports.down = pgm => {
+  pgm.sql("UPDATE song SET album_id = NULL");
   pgm.dropTable('song');
 };

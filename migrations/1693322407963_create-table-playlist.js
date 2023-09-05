@@ -31,5 +31,6 @@ exports.up = pgm => {
 
 
 exports.down = pgm => {
+  pgm.sql("UPDATE playlist SET owner = NULL");
   pgm.dropTable('playlist');
 };

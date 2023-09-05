@@ -34,5 +34,7 @@ exports.up = pgm => {
 
 
 exports.down = pgm => {
+  pgm.sql("UPDATE playlist_song SET playlist_id = NULL");
+  pgm.sql("UPDATE playlist_song SET song_id = NULL");
   pgm.dropTable('playlist_song');
 };
