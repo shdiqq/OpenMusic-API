@@ -1,7 +1,9 @@
 require('dotenv').config();
 
+const path = require('path');
 const Hapi = require('@hapi/hapi');
 const Jwt = require('@hapi/jwt');
+const Inert = require('@hapi/inert');
 
 // album
 const album = require('./api/album');
@@ -33,18 +35,37 @@ const authentication = require('./api/authentication');
 const AuthenticationService = require('./service/postgres/authentication');
 const AuthenticationValidator = require('./validator/authentication');
 
+// Export
+const _export = require('./api/export');
+const ProducerService = require('./service/rabbitmq/ProducerService');
+const ExportValidator = require('./validator/export');
+
+// upload
+const StorageService = require('./service/storage/StorageService');
+const UploadValidator = require('./validator/upload');
+
+// cache
+const CacheService = require('./service/redis/CacheService');
+
 // token
 const TokenManager = require('./tokenize/TokenManager');
 
+// error
 const ClientError = require('./exception/ClientError');
 
 const init = async () => {
-  const albumService = new AlbumService();
+  const cacheService = new CacheService();
+
+  const albumService = new AlbumService(cacheService);
   const songService = new SongService();
   const playlistService = new PlaylistService();
   const collaborationService = new CollaborationService();
   const userService = new UserService();
   const authenticationService = new AuthenticationService();
+
+  const storageService = new StorageService(
+    path.resolve(__dirname, 'api/album/file/cover')
+  );
 
   const server = Hapi.server({
     port: process.env.PORT,
@@ -61,6 +82,9 @@ const init = async () => {
     await server.register([
       {
         plugin: Jwt,
+      },
+      {
+        plugin: Inert,
       },
     ]);
 
@@ -85,8 +109,10 @@ const init = async () => {
       {
         plugin: album,
         options: {
-          service: albumService,
-          validator: AlbumValidator,
+          albumService,
+          albumValidator: AlbumValidator,
+          storageService,
+          uploadValidator: UploadValidator,
         },
       },
       {
@@ -126,6 +152,14 @@ const init = async () => {
           validator: AuthenticationValidator,
         },
       },
+      {
+        plugin: _export,
+        options: {
+          service: ProducerService,
+          playlistService,
+          validator: ExportValidator,
+        },
+      },
     ]);
 
     server.ext('onPreResponse', (request, h) => {
@@ -160,7 +194,7 @@ const init = async () => {
     await server.start();
     console.log(`[APP] Server berjalan pada ${server.info.uri}`);
   } catch (error) {
-    console.error('[APP] Terjadi kesalahan:', error);
+    console.error('[APP] Terjadi kesalahan: ', error);
   }
 };
 

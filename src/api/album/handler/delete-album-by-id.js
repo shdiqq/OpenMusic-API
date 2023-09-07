@@ -1,6 +1,6 @@
 const deleteAlbumByIdHandler = async (_this, request) => {
   const { id } = request.params;
-  await _this._service.deleteAlbumByIdService(id);
+  await _this._albumService.deleteAlbumByIdService(id);
   return {
     status: 'success',
     message: 'Album berhasil dihapus',

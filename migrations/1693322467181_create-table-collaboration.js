@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-exports.up = pgm => {
+exports.up = (pgm) => {
   pgm.createTable('collaboration', {
     id: {
       type: 'VARCHAR(30)',
@@ -39,7 +39,8 @@ exports.up = pgm => {
 };
 
 
-exports.down = pgm => {
+exports.down = (pgm) => {
+  pgm.dropConstraint("user_album_like", "unique_playlist_id_and_user_id");
   pgm.sql("UPDATE collaboration SET playlist_id = NULL");
   pgm.sql("UPDATE collaboration SET user_id = NULL");
   pgm.dropTable('collaboration');

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-exports.up = pgm => {
+exports.up = (pgm) => {
   pgm.createTable('song', {
     id: {
       type: 'VARCHAR(21)',
@@ -47,7 +47,7 @@ exports.up = pgm => {
 };
 
 
-exports.down = pgm => {
+exports.down = (pgm) => {
   pgm.sql("UPDATE song SET album_id = NULL");
   pgm.dropTable('song');
 };

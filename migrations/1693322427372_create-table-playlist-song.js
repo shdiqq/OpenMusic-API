@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-exports.up = pgm => {
+exports.up = (pgm) => {
   pgm.createTable('playlist_song', {
     id: {
       type: 'VARCHAR(30)',
@@ -30,10 +30,21 @@ exports.up = pgm => {
       notNull: false,
     },
   });
+
+  /*
+    Menambahkan constraint UNIQUE, kombinasi dari kolom playlist_id dan song_id.
+    Guna menghindari duplikasi data antara nilai keduanya.
+  */
+    pgm.addConstraint(
+      "playlist_song",
+      "unique_playlist_id_and_song_id",
+      "UNIQUE(playlist_id, song_id)"
+    );
 };
 
 
-exports.down = pgm => {
+exports.down = (pgm) => {
+  pgm.dropConstraint("playlist_song", "unique_playlist_id_and_song_id");
   pgm.sql("UPDATE playlist_song SET playlist_id = NULL");
   pgm.sql("UPDATE playlist_song SET song_id = NULL");
   pgm.dropTable('playlist_song');

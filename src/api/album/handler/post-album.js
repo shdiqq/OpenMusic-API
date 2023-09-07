@@ -1,8 +1,8 @@
 const postAlbum = async (_this, request, h) => {
-  _this._validator.validatePostAlbumPayload(request.payload);
+  _this._albumValidator.validatePostAlbumPayload(request.payload);
   const { name, year } = request.payload;
 
-  const AlbumId = await _this._service.postAlbumService({ name, year });
+  const AlbumId = await _this._albumService.postAlbumService({ name, year });
 
   const response = h.response({
     status: 'success',
